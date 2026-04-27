@@ -279,11 +279,39 @@ const DEMO_STUDENTS = [
 ];
 
 let timerInterval = null;
+let studentMap = {};
+let usingDemo = false;
+let rosterPromise = null;
+
+// ════════════════════════════════════════
+//  ROSTER LOADING
+// ════════════════════════════════════════
+async function loadRoster() {
+  if (CONFIG.API_URL) {
+    try {
+      const res = await fetch(`${CONFIG.API_URL}?action=load`);
+      const data = await res.json();
+      if (data.success && Array.isArray(data.students)) {
+        data.students.forEach(s => { studentMap[s.id] = s; });
+        console.info(`Loaded ${data.students.length} students from sheet`);
+        return;
+      }
+      console.warn('Roster load failed:', data.error);
+    } catch (e) {
+      console.warn('Roster load error:', e);
+    }
+  }
+  if (CONFIG.DEMO_MODE) {
+    DEMO_STUDENTS.forEach(s => { studentMap[s.id] = s; });
+    usingDemo = true;
+    console.info('Using DEMO_STUDENTS fallback');
+  }
+}
 
 // ════════════════════════════════════════
 //  LOGIN
 // ════════════════════════════════════════
-function handleLogin() {
+async function handleLogin() {
   const id = document.getElementById('student-id').value.trim();
   const dob = document.getElementById('dob').value.trim();
   hideError();
@@ -292,8 +320,12 @@ function handleLogin() {
   if (!/^\d{10}$/.test(id)) return showError('Student ID must be exactly 10 digits.');
   if (!/^\d{8}$/.test(dob)) return showError('Date of Birth must be 8 digits (YYYYMMDD).');
 
-  const student = DEMO_STUDENTS.find(s => s.id === id && s.dob === dob);
-  if (!student) return showError('No matching record found. Please double-check your details.');
+  if (rosterPromise) await rosterPromise;
+
+  const student = studentMap[id];
+  if (!student || student.dob !== dob) {
+    return showError('No matching record found. Please double-check your details.');
+  }
 
   showQR(student);
 }
@@ -317,10 +349,21 @@ function showQR(student) {
   document.getElementById('result-name').textContent = student.name;
   document.getElementById('result-id').textContent = student.id;
   document.getElementById('result-affiliation').textContent = student.affiliation;
+  setPhoto('result-photo', student.photo_file_id);
 
   generateQR(student);
   startTimer(student);
 }
+
+function setPhoto(elId, fileId) {
+  const el = document.getElementById(elId);
+  if (fileId) {
+    el.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${fileId}&sz=w400" alt="" onerror="this.parentElement.innerHTML=window.__photoFallbackSvg">`;
+  } else {
+    el.innerHTML = window.__photoFallbackSvg;
+  }
+}
+window.__photoFallbackSvg = `<svg width="28" height="28" viewBox="0 0 40 40" fill="none" stroke="#B0B0C8" stroke-width="2"><circle cx="20" cy="16" r="8"/><path d="M6 36c0-7.7 6.3-14 14-14s14 6.3 14 14"/></svg>`;
 
 function generateQR(student) {
   const container = document.getElementById('qr-container');
@@ -402,6 +445,7 @@ function createSparkles() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && !document.getElementById('login-screen').classList.contains('hidden')) handleLogin(); });
+rosterPromise = loadRoster();
 createBunting(); createConfetti(); createSparkles();
 window.addEventListener('resize', createBunting);
 </script>
