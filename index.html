@@ -8,23 +8,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root {
-    --yonsei-navy: #003876;
-    --yonsei-navy-deep: #002654;
-    --yonsei-gold: #C8A951;
-    --yonsei-gold-light: #E8D48B;
-    --accent-orange: #E8852E;
-    --accent-warm: #F4A43C;
-    --success-green: #22A065;
-    --error-red: #D94040;
-    --error-bg: #FFF0F0;
+    --yonsei-navy: #003876; --yonsei-navy-deep: #002654;
+    --gold: #C8A951; --gold-light: #E8D48B;
+    --orange: #E8852E; --warm: #F4A43C;
+    --green: #22A065; --red: #D94040;
     --card-bg: rgba(255,255,255,0.97);
-    --text-primary: #1A1A2E;
-    --text-secondary: #5A5A7A;
-    --body-font: 'DM Sans', 'Noto Sans KR', sans-serif;
-    --display-font: 'Playfair Display', serif;
+    --text: #1A1A2E; --text2: #5A5A7A;
+    --font: 'DM Sans', 'Noto Sans KR', sans-serif;
+    --display: 'Playfair Display', serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: var(--body-font); min-height: 100vh; overflow-x: hidden; background: var(--yonsei-navy); }
+  body { font-family: var(--font); min-height: 100vh; overflow-x: hidden; background: var(--yonsei-navy); }
 
   /* ─── Background ─── */
   .bg-scene {
@@ -46,7 +40,7 @@
   @keyframes sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
   .confetti-piece { position: absolute; opacity: 0.6; animation: confetti-fall linear infinite; }
   @keyframes confetti-fall { 0% { transform: translateY(-10vh) rotate(0); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.4; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
-  .sparkle { position: absolute; width: 4px; height: 4px; background: var(--yonsei-gold-light); border-radius: 50%; animation: sparkle-pulse 2s ease-in-out infinite; }
+  .sparkle { position: absolute; width: 4px; height: 4px; background: var(--gold-light); border-radius: 50%; animation: sparkle-pulse 2s ease-in-out infinite; }
   @keyframes sparkle-pulse { 0%,100% { opacity: 0; transform: scale(0); } 50% { opacity: 0.8; transform: scale(1); } }
 
   /* ─── Layout ─── */
@@ -67,10 +61,7 @@
     background: linear-gradient(135deg, var(--yonsei-navy), var(--yonsei-navy-deep));
     padding: 36px 32px 28px; text-align: center; position: relative; overflow: hidden;
   }
-  .card-header::after {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at 30% 20%, rgba(200,169,81,0.1) 0%, transparent 50%);
-  }
+  .card-header::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(200,169,81,0.1) 0%, transparent 50%); }
   .card-header > * { position: relative; z-index: 1; }
 
   .logo-badge {
@@ -79,42 +70,50 @@
     border: 2px solid rgba(200,169,81,0.3); border-radius: 50%; margin-bottom: 16px;
   }
   .event-badge {
-    display: inline-block; background: linear-gradient(135deg, var(--accent-orange), var(--accent-warm));
+    display: inline-block; background: linear-gradient(135deg, var(--orange), var(--warm));
     color: #fff; font-size: 12px; font-weight: 700; padding: 5px 16px; border-radius: 20px; margin-bottom: 12px;
   }
-  .card-title { font-family: var(--display-font); font-size: 24px; color: #fff; margin-bottom: 6px; }
+  .card-title { font-family: var(--display); font-size: 24px; color: #fff; margin-bottom: 6px; }
   .card-subtitle { font-size: 13px; color: rgba(200,169,81,0.8); font-weight: 500; }
   .card-body { padding: 32px; }
 
   /* ─── Form ─── */
   .form-group { margin-bottom: 20px; }
-  .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+  .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
   .form-input {
     width: 100%; padding: 14px 16px; border: 2px solid #E8E8F0; border-radius: 12px;
-    font-size: 15px; font-family: var(--body-font); color: var(--text-primary);
-    transition: all 0.2s; background: #FAFAFE;
+    font-size: 15px; font-family: var(--font); color: var(--text); background: #FAFAFE; transition: all 0.2s;
   }
   .form-input:focus { outline: none; border-color: var(--yonsei-navy); background: #fff; box-shadow: 0 0 0 4px rgba(0,56,118,0.08); }
   .form-input::placeholder { color: #B0B0C8; }
-  .form-hint { font-size: 11.5px; color: var(--text-secondary); margin-top: 6px; }
+  .form-hint { font-size: 11.5px; color: var(--text2); margin-top: 6px; }
+
   .btn-primary {
     width: 100%; padding: 16px; background: linear-gradient(135deg, var(--yonsei-navy), #1A5296);
     color: #fff; border: none; border-radius: 14px; font-size: 16px; font-weight: 700;
-    font-family: var(--body-font); cursor: pointer; transition: all 0.25s;
+    font-family: var(--font); cursor: pointer; transition: all 0.25s;
   }
   .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,56,118,0.3); }
   .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+  .spinner {
+    display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
   .error-message {
     display: none; align-items: center; gap: 8px;
-    background: var(--error-bg); border: 1px solid #FFD4D4; border-radius: 10px;
-    padding: 12px 16px; margin-bottom: 20px; font-size: 13.5px; color: var(--error-red); font-weight: 500;
+    background: #FFF0F0; border: 1px solid #FFD4D4; border-radius: 10px;
+    padding: 12px 16px; margin-bottom: 20px; font-size: 13.5px; color: var(--red); font-weight: 500;
   }
 
-  /* ─── QR Result ─── */
+  /* ─── Result ─── */
   .status-bar {
     padding: 12px 20px; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: 0.3px;
   }
-  .status-bar.pending { background: linear-gradient(135deg, var(--accent-orange), var(--accent-warm)); color: #fff; }
+  .status-bar.pending { background: linear-gradient(135deg, var(--orange), var(--warm)); color: #fff; }
 
   .result-body { padding: 28px 32px; text-align: center; }
 
@@ -130,27 +129,24 @@
   }
   .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
   .student-meta { flex: 1; min-width: 0; }
-  .student-meta .name { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
-  .student-meta .detail { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+  .student-meta .name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .student-meta .detail { font-size: 12px; color: var(--text2); font-weight: 500; }
 
   .qr-section { margin-bottom: 20px; }
-  .qr-section h3 { font-size: 13px; color: var(--text-secondary); font-weight: 600; margin-bottom: 12px; letter-spacing: 0.3px; }
-
+  .qr-section h3 { font-size: 13px; color: var(--text2); font-weight: 600; margin-bottom: 12px; letter-spacing: 0.3px; }
   .qr-container {
     display: inline-block; padding: 16px; background: #fff;
-    border: 2px solid #E8E8F0; border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    border: 2px solid #E8E8F0; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
   }
-  /* FIX: qrcode.js generates both canvas + img — hide the img duplicate */
   .qr-container img { display: none !important; }
   .qr-container canvas { display: block !important; }
 
   .qr-timer {
     display: flex; align-items: center; justify-content: center; gap: 6px;
-    margin-top: 12px; font-size: 12px; color: var(--text-secondary); font-weight: 500;
+    margin-top: 12px; font-size: 12px; color: var(--text2); font-weight: 500;
   }
   .timer-bar { width: 120px; height: 4px; background: #E8E8F0; border-radius: 2px; overflow: hidden; }
-  .timer-fill { height: 100%; background: var(--success-green); border-radius: 2px; transition: width 1s linear; }
+  .timer-fill { height: 100%; background: var(--green); border-radius: 2px; transition: width 1s linear; }
 
   .qr-instruction {
     background: linear-gradient(135deg, #F0F4FF, #E8EFFF);
@@ -162,9 +158,9 @@
     display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
     padding: 10px 24px; background: #F4F4FA; border: 1px solid #E8E8F0;
     border-radius: 10px; font-size: 13px; font-weight: 600;
-    color: var(--text-secondary); cursor: pointer; font-family: var(--body-font); transition: all 0.2s;
+    color: var(--text2); cursor: pointer; font-family: var(--font); transition: all 0.2s;
   }
-  .btn-back:hover { background: #EAEAF2; color: var(--text-primary); }
+  .btn-back:hover { background: #EAEAF2; color: var(--text); }
 
   .hidden { display: none !important; }
   .fade-in { animation: fadeIn 0.4s ease forwards; }
@@ -205,8 +201,8 @@
       <p class="card-subtitle">YISS 2026 · August 5, 2026</p>
     </div>
     <div class="card-body">
-      <div class="error-message" id="login-error">
-        <span>⚠</span> <span id="login-error-text"></span>
+      <div class="error-message" id="error-msg">
+        <span>⚠</span> <span id="error-text"></span>
       </div>
       <div class="form-group">
         <label class="form-label">Student ID</label>
@@ -218,11 +214,11 @@
         <input type="text" class="form-input" id="dob" placeholder="e.g. 20010315 (YYYYMMDD)" maxlength="8" inputmode="numeric">
         <p class="form-hint">Enter 8 digits in YYYYMMDD format</p>
       </div>
-      <button class="btn-primary" onclick="handleLogin()">Check In</button>
+      <button class="btn-primary" id="btn-login" onclick="handleLogin()">Check In</button>
     </div>
   </div>
 
-  <!-- QR RESULT -->
+  <!-- RESULT -->
   <div class="card hidden" id="result-screen">
     <div class="status-bar pending">
       ⏳ Show this QR code to the staff at the entrance
@@ -250,7 +246,7 @@
       </div>
 
       <div class="qr-instruction">
-        📱 Present this QR code to the staff at the entrance. The code refreshes every 30 seconds for security — screenshots will not work.
+        📱 Present this QR code to the staff at the entrance. The code refreshes every 30 seconds — screenshots will not work.
       </div>
 
       <button class="btn-back" onclick="goBack()">← Back</button>
@@ -264,135 +260,118 @@
 //  CONFIG
 // ════════════════════════════════════════
 const CONFIG = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbwNVVYMxxr_Z5PnwNZUCZeU1GM4tYMraQeWueQ1WEUAzyZhqnGMwi6U-sOaSILWpPSP/exec',           // Apps Script Web App URL
+  API_URL: '',           // Apps Script Web App URL
   DEMO_MODE: true,
   QR_REFRESH_SEC: 30,
   SECRET: 'YISS2026-ceremony-checkin'
 };
 
-const DEMO_STUDENTS = [
-  { id: '2026840001', dob: '20010315', name: 'Emma Johnson', affiliation: 'UC Berkeley' },
-  { id: '2026840002', dob: '20020728', name: 'Yuki Tanaka', affiliation: 'ICU Japan' },
-  { id: '2026840003', dob: '20000501', name: 'Min-ji Park', affiliation: 'Northwestern University' },
-  { id: '2026840004', dob: '20011220', name: 'Lucas Schmidt', affiliation: 'University of Leeds' },
-  { id: '2026840005', dob: '19991103', name: 'Sofia Chen', affiliation: 'NTU Singapore' },
-];
+// Demo data (DEMO_MODE only)
+const DEMO_DB = {
+  '2026840001|20010315': { student_id: '2026840001', name: 'Emma Johnson', affiliation: 'UC Berkeley', photo_url: '' },
+  '2026840002|20020728': { student_id: '2026840002', name: 'Yuki Tanaka', affiliation: 'ICU Japan', photo_url: '' },
+  '2026840003|20000501': { student_id: '2026840003', name: 'Min-ji Park', affiliation: 'Northwestern University', photo_url: '' },
+  '2026840004|20011220': { student_id: '2026840004', name: 'Lucas Schmidt', affiliation: 'University of Leeds', photo_url: '' },
+  '2026840005|19991103': { student_id: '2026840005', name: 'Sofia Chen', affiliation: 'NTU Singapore', photo_url: '' },
+};
 
 let timerInterval = null;
-let studentMap = {};
-let usingDemo = false;
-let rosterPromise = null;
 
 // ════════════════════════════════════════
-//  ROSTER LOADING
-// ════════════════════════════════════════
-async function loadRoster() {
-  if (CONFIG.API_URL) {
-    try {
-      const res = await fetch(`${CONFIG.API_URL}?action=load`);
-      const data = await res.json();
-      if (data.success && Array.isArray(data.students)) {
-        data.students.forEach(s => { studentMap[s.id] = s; });
-        console.info(`Loaded ${data.students.length} students from sheet`);
-        return;
-      }
-      console.warn('Roster load failed:', data.error);
-    } catch (e) {
-      console.warn('Roster load error:', e);
-    }
-  }
-  if (CONFIG.DEMO_MODE) {
-    DEMO_STUDENTS.forEach(s => { studentMap[s.id] = s; });
-    usingDemo = true;
-    console.info('Using DEMO_STUDENTS fallback');
-  }
-}
-
-// ════════════════════════════════════════
-//  LOGIN
+//  LOGIN (서버사이드 매칭)
 // ════════════════════════════════════════
 async function handleLogin() {
   const id = document.getElementById('student-id').value.trim();
   const dob = document.getElementById('dob').value.trim();
+  const btn = document.getElementById('btn-login');
   hideError();
 
   if (!id || !dob) return showError('Please enter both Student ID and Date of Birth.');
   if (!/^\d{10}$/.test(id)) return showError('Student ID must be exactly 10 digits.');
   if (!/^\d{8}$/.test(dob)) return showError('Date of Birth must be 8 digits (YYYYMMDD).');
 
-  if (rosterPromise) await rosterPromise;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Looking up...';
 
-  const student = studentMap[id];
-  if (!student || student.dob !== dob) {
-    return showError('No matching record found. Please double-check your details.');
+  try {
+    let result;
+
+    if (CONFIG.DEMO_MODE) {
+      await new Promise(r => setTimeout(r, 800));
+      const student = DEMO_DB[`${id}|${dob}`];
+      result = student
+        ? { success: true, student }
+        : { success: false, error: 'No matching record found. Please check your Student ID and Date of Birth.' };
+    } else {
+      const res = await fetch(`${CONFIG.API_URL}?action=lookup&id=${encodeURIComponent(id)}&dob=${encodeURIComponent(dob)}`);
+      result = await res.json();
+    }
+
+    if (result.success) {
+      showResult(result.student);
+    } else {
+      showError(result.error);
+    }
+  } catch (err) {
+    showError('Connection error. Please try again.');
   }
 
-  showQR(student);
+  btn.disabled = false;
+  btn.innerHTML = 'Check In';
 }
 
-function showError(msg) {
-  const el = document.getElementById('login-error');
-  document.getElementById('login-error-text').textContent = msg;
-  el.style.display = 'flex';
-}
-function hideError() { document.getElementById('login-error').style.display = 'none'; }
-
 // ════════════════════════════════════════
-//  QR DISPLAY
+//  RESULT
 // ════════════════════════════════════════
-function showQR(student) {
+function showResult(student) {
   document.getElementById('login-screen').classList.add('hidden');
   const result = document.getElementById('result-screen');
   result.classList.remove('hidden');
   result.classList.add('fade-in');
 
   document.getElementById('result-name').textContent = student.name;
-  document.getElementById('result-id').textContent = student.id;
+  document.getElementById('result-id').textContent = student.student_id;
   document.getElementById('result-affiliation').textContent = student.affiliation;
-  setPhoto('result-photo', student.photo_file_id);
 
-  generateQR(student);
-  startTimer(student);
-}
-
-function setPhoto(elId, fileId) {
-  const el = document.getElementById(elId);
-  if (fileId) {
-    el.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${fileId}&sz=w400" alt="" onerror="this.parentElement.innerHTML=window.__photoFallbackSvg">`;
-  } else {
-    el.innerHTML = window.__photoFallbackSvg;
+  // Photo
+  const photoEl = document.getElementById('result-photo');
+  if (student.photo_url) {
+    const img = new Image();
+    img.onload = () => { photoEl.innerHTML = ''; img.style.cssText = 'width:100%;height:100%;object-fit:cover;'; photoEl.appendChild(img); };
+    img.src = student.photo_url;
   }
-}
-window.__photoFallbackSvg = `<svg width="28" height="28" viewBox="0 0 40 40" fill="none" stroke="#B0B0C8" stroke-width="2"><circle cx="20" cy="16" r="8"/><path d="M6 36c0-7.7 6.3-14 14-14s14 6.3 14 14"/></svg>`;
 
-function generateQR(student) {
+  // QR
+  generateQR(student.student_id);
+  startTimer(student.student_id);
+}
+
+// ════════════════════════════════════════
+//  QR CODE
+// ════════════════════════════════════════
+function generateQR(studentId) {
   const container = document.getElementById('qr-container');
   container.innerHTML = '';
-
   const ts = Math.floor(Date.now() / 1000);
-  const payload = `${student.id}|${ts}`;
+  const payload = `${studentId}|${ts}`;
   const sig = simpleHash(payload + CONFIG.SECRET);
-  const data = `YISS|${payload}|${sig}`;
 
   new QRCode(container, {
-    text: data, width: 200, height: 200,
+    text: `YISS|${payload}|${sig}`,
+    width: 200, height: 200,
     colorDark: '#1A1A2E', colorLight: '#FFFFFF',
     correctLevel: QRCode.CorrectLevel.M
   });
 }
 
-function startTimer(student) {
+function startTimer(studentId) {
   if (timerInterval) clearInterval(timerInterval);
   let sec = CONFIG.QR_REFRESH_SEC;
   updateTimer(sec);
-
   timerInterval = setInterval(() => {
     sec--;
     updateTimer(sec);
-    if (sec <= 0) {
-      generateQR(student);
-      sec = CONFIG.QR_REFRESH_SEC;
-    }
+    if (sec <= 0) { generateQR(studentId); sec = CONFIG.QR_REFRESH_SEC; }
   }, 1000);
 }
 
@@ -401,7 +380,7 @@ function updateTimer(sec) {
   const pct = (sec / CONFIG.QR_REFRESH_SEC) * 100;
   const fill = document.getElementById('timer-fill');
   fill.style.width = pct + '%';
-  fill.style.background = pct < 20 ? 'var(--error-red)' : pct < 40 ? 'var(--accent-orange)' : 'var(--success-green)';
+  fill.style.background = pct < 20 ? '#D94040' : pct < 40 ? '#E8852E' : '#22A065';
 }
 
 function goBack() {
@@ -416,8 +395,15 @@ function goBack() {
 }
 
 // ════════════════════════════════════════
-//  UTILS
+//  HELPERS
 // ════════════════════════════════════════
+function showError(msg) {
+  const el = document.getElementById('error-msg');
+  document.getElementById('error-text').textContent = msg;
+  el.style.display = 'flex';
+}
+function hideError() { document.getElementById('error-msg').style.display = 'none'; }
+
 function simpleHash(str) {
   let h = 0;
   for (let i = 0; i < str.length; i++) { h = ((h << 5) - h) + str.charCodeAt(i); h |= 0; }
@@ -445,7 +431,6 @@ function createSparkles() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && !document.getElementById('login-screen').classList.contains('hidden')) handleLogin(); });
-rosterPromise = loadRoster();
 createBunting(); createConfetti(); createSparkles();
 window.addEventListener('resize', createBunting);
 </script>
