@@ -64,8 +64,10 @@
 
   .logo-badge {
     display: inline-flex; align-items: center; justify-content: center;
-    width: 64px; height: 64px; background: rgba(255,255,255,0.12);
-    border: 2px solid rgba(200,169,81,0.3); border-radius: 50%; margin-bottom: 16px;
+    width: 64px; height: 64px;
+    background: #fff;                          /* 기존 rgba(255,255,255,0.12) → 흰색 */
+    border: 2px solid rgba(200,169,81,0.5);    /* 골드 테두리 유지 */
+    border-radius: 50%; margin-bottom: 16px;
   }
   .event-badge {
     display: inline-block; background: linear-gradient(135deg, var(--orange), var(--warm));
@@ -199,11 +201,8 @@
   <div class="card" id="login-screen">
     <div class="card-header">
       <div class="logo-badge">
-        <svg viewBox="0 0 36 36" fill="none" width="36" height="36">
-          <circle cx="18" cy="18" r="16" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
-          <circle cx="18" cy="18" r="12" stroke="rgba(200,169,81,0.6)" stroke-width="1"/>
-          <text x="18" y="22" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="serif">Y</text>
-        </svg>
+        <img src="yonsei_symbol_256.png" alt="Yonsei University" style="width:42px;height:42px;object-fit:contain;">
+      </div>
       </div>
       <div class="event-badge">🎓 Ceremony Check-in</div>
       <h1 class="card-title">Commencement Ceremony</h1>
